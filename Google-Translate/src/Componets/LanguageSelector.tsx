@@ -7,6 +7,8 @@ import { FromLenguage, Languages, SectionType } from '../types.d';
 // }
 
 type Props = 
+//el onchange es una funcion que recibe un valor de tipo fromlenguage y no devuelve nada
+//por lo que por eso en la funcion onchange el value le decimos que sea as Languages
   |{type:SectionType.FROM, value:FromLenguage, onChange: (language: FromLenguage) => void}
   |{type:SectionType.TO , value:Languages, onChange: (language: Languages) => void}
 
@@ -14,6 +16,7 @@ type Props =
 export const LanguageSelector=({onChange,type,value} :Props )=> {
 
   const handleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    console.log(event.target.value);
     onChange(event.target.value as Languages);
   };
   //hay que ponerle un tipo al event ya que si no ts llora
