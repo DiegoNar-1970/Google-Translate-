@@ -5,6 +5,7 @@ import './App.css';
 import LanguageSelector from './Componets/LanguageSelector';
 import { AUTO_LANGUAGE } from './constans';
 import { useStore } from './hooks/useStore';
+import { SectionType } from './types.d';
 
 function App() {
 const {fromLanguage, setFromLanguage,setToLanguage,interchangeLanguages,toLanguage} = useStore()
@@ -16,17 +17,17 @@ const {fromLanguage, setFromLanguage,setToLanguage,interchangeLanguages,toLangua
       <Row>
         <Col>
           <LanguageSelector 
-           type='from'
+           type={SectionType.FROM}
            value={fromLanguage}
            onChange={setFromLanguage}/>
            {fromLanguage}
         </Col>
         <Col>
-            <Button variant='link' disabled={fromLanguage === AUTO_LANGUAGE} onClick={interchangeLanguages}> <FaExchangeAlt /> </Button>
+            <Button variant='link' disabled={fromLanguage === AUTO_LANGUAGE} onClick={interchangeLanguages}><FaExchangeAlt /></Button>
         </Col>
         <Col>
           <LanguageSelector 
-            type='to'
+            type={SectionType.TO}
             value={toLanguage}
             onChange={setToLanguage}/>
             {toLanguage}

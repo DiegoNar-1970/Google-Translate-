@@ -1,17 +1,17 @@
 import { Form } from 'react-bootstrap';
-import { SUPPORTED_LANGUAGES } from '../constans';
-import { FromLenguage, Languages } from '../types.d';
+import { AUTO_LANGUAGE, SUPPORTED_LANGUAGES } from '../constans';
+import { FromLenguage, Languages, SectionType } from '../types.d';
 
 // interface Props {
 //   onChange: (language: string) => void;
 // }
 
 type Props = 
-  |{type:'from', value:FromLenguage, onChange: (language: FromLenguage) => void}
-  |{type:'to', value:Languages, onChange: (language: Languages) => void}
+  |{type:SectionType.FROM, value:FromLenguage, onChange: (language: FromLenguage) => void}
+  |{type:SectionType.TO , value:Languages, onChange: (language: Languages) => void}
 
 
-export const LanguageSelector=({onChange} :Props )=> {
+export const LanguageSelector=({onChange,type,value} :Props )=> {
 
   const handleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     onChange(event.target.value as Languages);
@@ -19,9 +19,12 @@ export const LanguageSelector=({onChange} :Props )=> {
   //hay que ponerle un tipo al event ya que si no ts llora
 
   return (
-    <Form.Select aria-label="selecciona el idioma" onChange={handleChange}>
+    <Form.Select aria-label="selecciona el idioma" onChange={handleChange} value={value}>
+
+      {type===SectionType.FROM && <option value={AUTO_LANGUAGE}> Detectar idioma</option>}
+
       {Object.entries(SUPPORTED_LANGUAGES).map(([key,value])=>(
-        <option key={key} value={key}>
+        <option key={key} value={key} >
           {value}
         </option>
       ))}

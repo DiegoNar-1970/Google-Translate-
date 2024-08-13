@@ -24,3 +24,7 @@ export type Action=
 
 //como en interchangue no usamos el payload porque no se envia informacion adicional no hay necesidad de usar el payload, y estto hace que donde se vaya a consumir este contrato obligue a no poder usar el paiload 
 
+export enum SectionType{
+    FROM='from',
+    TO='to'
+}
