@@ -1,14 +1,26 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Button, Col, Container, Form, Row, Stack } from 'react-bootstrap';
+import { Button, Col, Container, Row, Stack } from 'react-bootstrap';
 import { FaExchangeAlt } from "react-icons/fa";
 import './App.css';
 import LanguageSelector from './Componets/LanguageSelector';
+import { TextArea } from './Componets/TextArea';
 import { AUTO_LANGUAGE } from './constans';
 import { useStore } from './hooks/useStore';
 import { SectionType } from './types.d';
 
 function App() {
-const {fromLanguage, setFromLanguage,setToLanguage,interchangeLanguages,toLanguage} = useStore()
+const {
+   loading,
+   fromLanguage,
+   setFromLanguage,
+   setToLanguage,
+   interchangeLanguages,
+   toLanguage,
+   result,
+   setResult,
+   fromText,
+   setFromText
+  } = useStore()
 
   return (
     <Container fluid>
@@ -20,14 +32,16 @@ const {fromLanguage, setFromLanguage,setToLanguage,interchangeLanguages,toLangua
           <LanguageSelector 
             type={SectionType.FROM}
             value={fromLanguage}
-            onChange={setFromLanguage}/>
-
-            <Form.Control
-            as={'textarea'}
-            placeholder='introducir texto'
-            autoFocus
-            style={{height: '150px'}}
+            onChange={setFromLanguage}
             />
+
+            <TextArea
+              type={SectionType.FROM}
+              value={fromText}
+              onChange={setFromText}
+              loading={loading}
+            />
+
         </Stack>
         </Col>
         <Col xs='auto'>
@@ -39,12 +53,12 @@ const {fromLanguage, setFromLanguage,setToLanguage,interchangeLanguages,toLangua
               type={SectionType.TO}
               value={toLanguage}
               onChange={setToLanguage}/>
-              <Form.Control
-            as={'textarea'}
-            placeholder='Traduccion'
-            
-            style={{height: '150px'}}
-            />
+            <TextArea
+              loading={loading}
+              type={SectionType.TO}
+              value={result}
+              onChange={setResult}/>
+
           </Stack>
         </Col>
       </Row>

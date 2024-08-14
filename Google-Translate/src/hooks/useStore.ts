@@ -39,6 +39,7 @@ const initialState: State = {
       }};
     
       if(type ==='SET_FROM_TEXT'){
+        if(!action.payload ) return{...state,fromText:'',loading:false};
         return{
           ...state,
           loading:true,
