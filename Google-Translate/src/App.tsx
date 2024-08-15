@@ -28,12 +28,13 @@ const {
     if(fromText==='') return;
     translate({fromLanguage,toLanguage,text: fromText}).
     then(result=>{
+      console.log('entro en result',result)
       //en ts == null compara también si es undefined, si solo ponemos === compararia solo el null y ni el undefined
       if(result == null) return;
       setResult(result);
     })
-    .catch(()=>{
-      setResult('Err');
+    .catch((err)=>{
+      setResult(err);
     })
    }, [])
 
@@ -72,8 +73,10 @@ const {
               loading={loading}
               type={SectionType.TO}
               value={result}
+              
               onChange={setResult}/>
-
+              
+              
           </Stack>
         </Col>
       </Row>
