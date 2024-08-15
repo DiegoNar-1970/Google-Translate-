@@ -1,4 +1,5 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { useEffect } from 'react';
 import { Button, Col, Container, Row, Stack } from 'react-bootstrap';
 import { FaExchangeAlt } from "react-icons/fa";
 import './App.css';
@@ -6,6 +7,7 @@ import LanguageSelector from './Componets/LanguageSelector';
 import { TextArea } from './Componets/TextArea';
 import { AUTO_LANGUAGE } from './constans';
 import { useStore } from './hooks/useStore';
+import { translate } from './services/translate.ts';
 import { SectionType } from './types.d';
 
 function App() {
@@ -21,6 +23,19 @@ const {
    fromText,
    setFromText
   } = useStore()
+
+   useEffect (() => {
+    if(fromText==='') return;
+    translate({fromLanguage,toLanguage,text: fromText}).
+    then(result=>{
+      //en ts == null compara también si es undefined, si solo ponemos === compararia solo el null y ni el undefined
+      if(result == null) return;
+      setResult(result);
+    })
+    .catch(()=>{
+      setResult('Err');
+    })
+   }, [])
 
   return (
     <Container fluid>
